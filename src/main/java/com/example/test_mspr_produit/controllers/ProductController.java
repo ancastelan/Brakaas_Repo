@@ -3,17 +3,10 @@ package com.example.test_mspr_produit.controllers;
 import com.example.test_mspr_produit.models.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-        import java.util.ArrayList;
-        import java.util.Iterator;
 
-        import org.springframework.stereotype.Controller;
-        import org.springframework.ui.Model;
-        import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
         import org.springframework.web.bind.annotation.ModelAttribute;
         import org.springframework.web.bind.annotation.PathVariable;
         import org.springframework.web.bind.annotation.PostMapping;
@@ -24,15 +17,15 @@ import java.time.LocalDateTime;
 @RequestMapping("/products")		// Prefix Path by /products/....
 public class ProductController {
 
-    public static final String USER_MODEL = "current_user";
-    public static final String USERS_MODEL = "products";
+    public static final String PRODUCT_MODEL = "current_product";
+    public static final String PRODUCTS_MODEL = "products";
 
     //private Product currentUser;
     private ArrayList<Product> products = new ArrayList<>();
 
     public ProductController() {
         products.add(new Product()
-                .setName("Gaillard")
+                .setName("rivet")
                 .setQuantity(12)
                 .setId(1));
         products.add(new Product().setName("Vis").setId(2));
@@ -42,7 +35,7 @@ public class ProductController {
 
     @GetMapping(CommonConstant.ROUTE_ALL)
     public String showAll(Model model) {
-        model.addAttribute(USERS_MODEL, products);
+        model.addAttribute(PRODUCTS_MODEL, products);
 
         return "products/list";
     }
@@ -50,35 +43,35 @@ public class ProductController {
 
     @GetMapping(CommonConstant.ROUTE_SHOW)   // => /products/120/show
     //@RequestMapping(method = RequestMethod.GET, path = CommonConstant.ROUTE_SHOW)	// Base of @GetMapping(...)
-    public String viewProfil(Model model, @PathVariable("id") long id) {
+    public String viewProductSheet(Model model, @PathVariable("id") long id) {
         Product userFinded = this.findProductById(id);
 
         if (userFinded != null) {
-            model.addAttribute(USER_MODEL, userFinded);
+            model.addAttribute(PRODUCT_MODEL, userFinded);
         }
 
-        return "products/profil";
+        return "products/fiche_produit";
     }
 
 
-
     @GetMapping(CommonConstant.ROUTE_EDIT)
-    public String editUser(Model model, @PathVariable("id") long id) {
-        Product userFinded = this.findProductById(id);
+    public String editProduct(Model model, @PathVariable("id") long id) {
+        Product productFinded = this.findProductById(id);
 
-        model.addAttribute(USER_MODEL, userFinded);
+        model.addAttribute(PRODUCT_MODEL, productFinded);
         return "products/form";
     }
 
     @PostMapping(CommonConstant.ROUTE_SAVE)
-    public String saveUser(Model model, @ModelAttribute Product userSubmit) {
-        Product userFinded = this.findProductById(userSubmit.getId());
+    public String saveProduct(Model model, @ModelAttribute Product productSubmit) {
+        Product productFinded = this.findProductById(productSubmit.getId());
 
-        if (userFinded != null) {
-            userFinded.setName(userSubmit.getName());
+        if (productFinded != null) {
+            productFinded.setName(productSubmit.getName());
+            productFinded.setQuantity(productSubmit.getQuantity());
         }
 
-        return "redirect:/products/" + userFinded.getId() + "/show";
+        return "redirect:/products/" + productFinded.getId() + "/show";
     }
 
 
@@ -105,4 +98,6 @@ public class ProductController {
         return productFinded;
     }
 }
+
+
 
