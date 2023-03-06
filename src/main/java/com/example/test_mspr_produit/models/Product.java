@@ -12,6 +12,5 @@ public class Product {
     private Integer quantity;
     private Boolean dispo;
 
-
 }
 

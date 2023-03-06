@@ -37,7 +37,7 @@ public class ProductController {
     public String showAll(Model model) {
         model.addAttribute(PRODUCTS_MODEL, products);
 
-        return "products/list";
+        return "products/product_list";
     }
 
 
@@ -59,7 +59,7 @@ public class ProductController {
         Product productFinded = this.findProductById(id);
 
         model.addAttribute(PRODUCT_MODEL, productFinded);
-        return "products/form";
+        return "products/form_product";
     }
 
     @PostMapping(CommonConstant.ROUTE_SAVE)
