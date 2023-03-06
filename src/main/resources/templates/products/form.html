@@ -82,7 +82,7 @@
 
         <form method="POST" th:action="@{/products/save}" th:object="${current_product}">
             <label>Product Name</label>
-            <input type="text" th:field="*{name}" />
+            <input type="text" th:field="*{name}"/>
             <br />
             <label>Quantity</label>
             <input type="text" th:field="*{quantity}" />
