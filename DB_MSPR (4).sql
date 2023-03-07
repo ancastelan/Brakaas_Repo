@@ -75,3 +75,16 @@ create table ordered_item (
 ALTER TABLE `ordered_item`
 	ADD CONSTRAINT `lien_entre_commande_et_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`id_client`),
 	ADD CONSTRAINT `produit_commande` FOREIGN KEY (`product_id`) REFERENCES `products` (`id_product`);
+
+create table users (
+	id_users INT NOT NULL AUTO_INCREMENT,
+	firstname (VARCHAR),
+	lastname (VARCHAR),
+	login (VARCHAR),
+	password (VARCHAR),
+	PRIMARY KEY (`id_users`),
+)
+insert into users (id_users, firstname, lastname, login, password) values (1,` Brayan`, `JEGO`, `B.JEGO`, `BRAYAN` );
+insert into users (id_users, firstname, lastname, login, password) values (2,` ANTOINE`, `OLD`, `ANTOINE.old`, `ANTOINE` );
+insert into users (id_users, firstname, lastname, login, password) values (3, `ANTOINE`, `new`, `ANTOINE.new`, `ANTOINE` );
+insert into users (id_users, firstname, lastname, login, password) values (4,`khadija`, `ELB`, `KHADIJA.ELB`, `khadija` );
