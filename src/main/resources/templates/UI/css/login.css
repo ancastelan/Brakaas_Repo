@@ -1,0 +1,45 @@
+.login {
+    width: 380px;
+    padding: 5em;
+    margin: auto;
+    background: white;
+    border-radius: 15px;
+}
+
+label {
+    color: #000000;
+    font-size: 17px;
+    font-family: 'PT Serif', serif;
+}
+
+.userName {
+    width: 300px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+.pass {
+    width: 300px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+.authLog {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    background-color: rgb(117, 117, 117);
+    color: white;
+}
+
+.authLog:hover {
+    transition: 0.4s;
+    opacity: 0.4;
+    cursor: pointer;
+}
