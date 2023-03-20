@@ -1,10 +1,13 @@
 package com.example.test_mspr_produit.controllers;
 
+import com.example.test_mspr_produit.db.DbOpenHelper;
 import com.example.test_mspr_produit.models.Client;
 import com.example.test_mspr_produit.models.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +29,9 @@ public class ClientController {
         //private Product currentUser;
         private ArrayList<Client> clients = new ArrayList<>();
 
-        public ClientController() {
-            clients.add(new Client()
-                    .setFname("toto")
-                    .setLname("toto")
-                    .setId_client(1));
-            clients.add(new Client().setFname("Vis").setId_client(2));
-            clients.add(new Client().setFname("Boulon").setId_client(3));
-            clients.add(new Client().setFname("Ecrou").setId_client(4));
+        public ClientController() throws SQLException {
+            DbOpenHelper DbHelper = new DbOpenHelper();
+            this.clients = DbHelper.show_all_client();
         }
 
         @GetMapping(CommonConstant.ROUTE_ALL)
@@ -70,8 +68,8 @@ public class ClientController {
             Client clientFinded = this.findClientById(clientSubmit.getId_client());
 
             if (clientFinded != null) {
-                clientFinded.setFname(clientSubmit.getFname());
-                clientFinded.setLname(clientSubmit.getLname());
+                clientFinded.setFirstname(clientSubmit.getFirstname());
+                clientFinded.setLastname(clientSubmit.getLastname());
                 clientFinded.setCompany_address(clientSubmit.getCompany_address());
                 clientFinded.setCompany_name(clientSubmit.getCompany_name());
                 clientFinded.setPhone_number(clientSubmit.getPhone_number());

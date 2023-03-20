@@ -83,10 +83,10 @@
     <form method="POST" th:action="@{/clients/save}" th:object="${current_client}">
 
       <label>Client Name</label>
-      <input type="text" th:field="*{fname}"/>
+      <input type="text" th:field="*{firstname}"/>
       <br />
       <label>Last Name</label>
-      <input type="text" th:field="*{lname}" />
+      <input type="text" th:field="*{lastname}" />
       <br />
       <label>Company Address</label>
       <input type="text" th:field="*{company_address}"/>

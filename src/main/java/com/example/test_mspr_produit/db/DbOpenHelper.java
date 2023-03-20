@@ -1,17 +1,18 @@
 package com.example.test_mspr_produit.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.example.test_mspr_produit.models.Client;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DbOpenHelper {
     public static DbOpenHelper instance = null;
     private Connection cnx = null;
-    private DbOpenHelper() {
+
+    public DbOpenHelper() {
         String cnxStr = "jdbc:mariadb://127.0.0.1:3306/mspr";
         try {
-            this.cnx = DriverManager.getConnection(cnxStr,"root", "");
+            this.cnx = DriverManager.getConnection(cnxStr, "root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -21,10 +22,10 @@ public class DbOpenHelper {
         return this.cnx;
     }
 
-    public static DbOpenHelper getInstance(){
+    public static DbOpenHelper getInstance() {
         if (DbOpenHelper.instance == null) {
             synchronized (DbOpenHelper.class) {
-                if (DbOpenHelper.instance == null){
+                if (DbOpenHelper.instance == null) {
                     DbOpenHelper.instance = new DbOpenHelper();
                 }
             }
@@ -60,7 +61,7 @@ public class DbOpenHelper {
     }
 
     public void show_client(int id) {
-        String sql_req = "SELECT * FROM xx WHERE id = ?";
+        String sql_req = "SELECT * FROM `client` WHERE id = ?";
         try {
             PreparedStatement statement = cnx.prepareStatement(sql_req);
             statement.setInt(1, id);
@@ -71,7 +72,7 @@ public class DbOpenHelper {
     }
 
     public void del_xx(int id) {
-        String sql_req = "DELETE FROM xx WHERE id = ?";
+        String sql_req = "DELETE FROM client WHERE id = ?";
         try {
             PreparedStatement statement = cnx.prepareStatement(sql_req);
             statement.setInt(1, id);

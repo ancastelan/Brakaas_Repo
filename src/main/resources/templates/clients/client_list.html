@@ -27,8 +27,8 @@
       <tbody>
       <tr th:each="client: ${clients}">
         <th scope="row" th:text="${client.id_client}" />
-        <td th:text="${client.Fname}" />
-        <td th:text="${client.Lname}" />
+        <td th:text="${client.firstname}" />
+        <td th:text="${client.lastname}" />
         <td>
           <a th:href="@{'/clients/' + ${client.id_client} + '/show'}">Show</a>
           <a th:href="@{|/clients/${client.id_client}/edit|}">Edit</a>
