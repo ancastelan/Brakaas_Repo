@@ -32,6 +32,7 @@ public class ClientController {
         public ClientController() throws SQLException {
             DbOpenHelper DbHelper = new DbOpenHelper();
             this.clients = DbHelper.show_all_client();
+
         }
 
         @GetMapping(CommonConstant.ROUTE_ALL)
@@ -76,7 +77,8 @@ public class ClientController {
                 clientFinded.setEmail_address(clientSubmit.getEmail_address());
                 clientFinded.setSIRET_number(clientSubmit.getSIRET_number());
             }
-
+            DbOpenHelper DbHelper = new DbOpenHelper();
+            DbHelper.update_client(clientSubmit);
             return "redirect:/clients/" + clientFinded.getId_client() + "/show";
         }
 
