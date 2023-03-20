@@ -55,6 +55,16 @@ public class ClientController {
             return "clients/fiche_client";
         }
 
+        @GetMapping(CommonConstant.ROUTE_DELETE)
+        public String delClient(Model model, @PathVariable("id") long id_client) {
+            Client clientFinded = this.findClientById(id_client);
+
+            model.addAttribute(CLIENT_MODEL, clientFinded);
+            DbOpenHelper DbHelper = new DbOpenHelper();
+            DbHelper.del_client(clientFinded);
+            return "redirect:/clients/";
+        }
+
 
         @GetMapping(CommonConstant.ROUTE_EDIT)
         public String editClient(Model model, @PathVariable("id") long id_client) {
@@ -105,5 +115,6 @@ public class ClientController {
 
             return clientFinded;
         }
+
 
 }

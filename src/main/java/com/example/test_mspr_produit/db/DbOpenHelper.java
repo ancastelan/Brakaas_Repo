@@ -71,14 +71,71 @@ public class DbOpenHelper {
         }
     }
 
-    public void del_xx(int id) {
-        String sql_req = "DELETE FROM client WHERE id = ?";
+    public void del_client(Client client) {
+        String sql_req = "DELETE FROM client WHERE `client`.`id_client` = ?";
         try {
             PreparedStatement statement = cnx.prepareStatement(sql_req);
-            statement.setInt(1, id);
+            statement.setInt(1, client.getId_client());
+            statement.executeUpdate();
+            cnx.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void update_client(Client client) {
+        String sql_req = "UPDATE `client` SET `firstname` = ?, `lastname` = ?, `company_address` = ?, `company_name` = ?, `phone_number` = ?, `email_address` = ?, `SIRET_number` = ? WHERE `client`.`id_client` = ?";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setString(1, client.getFirstname());
+            statement.setString(2, client.getLastname());
+            statement.setString(3, client.getCompany_address());
+            statement.setString(4, client.getCompany_name());
+            statement.setString(5, client.getPhone_number());
+            statement.setString(6, client.getEmail_address());
+            statement.setString(7, client.getSIRET_number());
+            statement.setInt(8, client.getId_client());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
+    public ArrayList show_all_client() throws SQLException {
+        try (Statement statement = cnx.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * from client");
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            ArrayList<Client> a_client = new ArrayList<>();
+            while (resultSet.next()) {
+                Client le_client = new Client();
+                ArrayList<String> carac_client = new ArrayList<>();
+                for (int i = 1; i <= columnsNumber; i++) {
+                    String columnValue = resultSet.getString(i);
+                    carac_client.add(columnValue);
+                }
+                le_client.setId_client(Integer.parseInt(carac_client.get(0)))
+                         .setFirstname(carac_client.get(1))
+                         .setLastname(carac_client.get(2))
+                         .setCompany_address(carac_client.get(3))
+                         .setCompany_name(carac_client.get(4))
+                         .setPhone_number(carac_client.get(5))
+                         .setEmail_address(carac_client.get(6))
+                         .setSIRET_number((carac_client.get(7)));
+                a_client.add(le_client);
+            }
+            System.out.println(a_client);
+            return a_client;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cnx.close();
+        return null ;
+
+    }
+
+
+
 }
