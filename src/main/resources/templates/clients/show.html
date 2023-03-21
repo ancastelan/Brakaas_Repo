@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/img/logoFav.ico">
+    <link rel="stylesheet" href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/css/style.css">
+    <link rel="stylesheet" href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/css/button.css">
+    <link rel="stylesheet" href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/css/table.css">
+
+    <title>Brakaas</title>
+</head>
+
+<body>
+    <header>
+        <a href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/index.html"><img class="img" src="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/img/logo.jpg"></a>
+        <a href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
+        <a href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/index.html"><input class="delog" type="button" value="Retour accueil"></a>
+        <h1>Les Brakaas !</h1>
+    </header>
+    <p>Fiche des clients :</p>
+
+    <div class="tabContainer">
+        <table class="tabDesign">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Nom Entreprise</th>
+                    <th>Adresse Entreprise</th>
+                    <th>N° Téléphone</th>
+                    <th>E-mail</th>
+                    <th>SIRET</th>
+                </tr>
+            </thead> <!-- -->
+            <tbody>
+                <tr>
+                    <td th:text="${current_client.firstname}" ></td>
+                    <td th:text="${current_client.lastname}"></td>
+                    <td th:text="${current_client.company_name}"></td>
+                    <td th:text="${current_client.company_address}"></td>
+                    <td th:text="${current_client.phone_number}"></td>
+                    <td th:text="${current_client.email_address}"></td>
+                    <td th:text="${current_client.SIRET_number}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="../../../../../../../../../../Downloads/Brakaas_Repo-Bryan%20(1)/Brakaas_Repo-Bryan/mspr/addClient.html"><input class="authLog" type="button" value="Modifier le client !"></a>
+        <a href="#"><input class="authLog" type="button" value="Suprimer le client !"></a>
+    </div>
+</body>

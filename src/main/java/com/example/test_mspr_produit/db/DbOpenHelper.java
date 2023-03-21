@@ -71,6 +71,23 @@ public class DbOpenHelper {
         }
     }
 
+    public void create_client(Client client){
+        String sql_req = "INSERT INTO `client`(firstname, lastname, company_address, company_name, phone_number, email_address, SIRET_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setString(1, client.getFirstname());
+            statement.setString(2, client.getLastname());
+            statement.setString(3, client.getCompany_address());
+            statement.setString(4, client.getCompany_name());
+            statement.setString(5, client.getPhone_number());
+            statement.setString(6, client.getEmail_address());
+            statement.setString(7, client.getSIRET_number());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void del_client(Client client) {
         String sql_req = "DELETE FROM client WHERE `client`.`id_client` = ?";
         try {

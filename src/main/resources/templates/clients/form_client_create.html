@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="/img/logoFav.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/confirmation.css">
+    <link rel="stylesheet" href="/css/create.css">
+
+    <title>Brakaas</title>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center">
+    <header>
+        <a href="../index.html"><img class="img" src="/img/logo.jpg"></a>
+        <a href="/confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
+        <a href="../index.html"><input class="delog" type="button" value="Retour accueil"></a>
+        <h1>Les Brakaas !</h1>
+    </header>
+    <p>Création d'un client :</p>
+
+    <div class="formCommand">
+        <form method="POST" th:action="@{/clients/submit}" th:object="${current_client}">
+            <label>Prénom du client :</label>
+            <input class="input" type="text" placeholder="Prenom du client" th:field="*{firstname}">
+            <br><br>
+            <label>Nom du client :</label>
+            <input class="input" type="text" placeholder="Nom du client" th:field="*{lastname}">
+            <br><br>
+            <label>Nom de l'entreprise :</label>
+            <input class="input" type="text" placeholder="Entreprise" th:field="*{company_name}">
+            <br><br>
+            <label>Adresse postale :</label>
+            <input class="input" type="text" placeholder="Adresse postale" th:field="*{company_address}">
+            <br><br>
+            <label>Adresse Mail :</label>
+            <input class="input" type="email" placeholder="Mail" th:field="*{email_address}">
+            <br><br>
+            <label>Numéro de téléphone :</label>
+            <input class="input" type="text" placeholder="Tel" th:field="*{phone_number}">
+            <br><br>
+            <label>SIRET :</label>
+            <input class="input" type="text" placeholder="Tel" th:field="*{SIRET_number}">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+
+</div>
+</body>
+</html>

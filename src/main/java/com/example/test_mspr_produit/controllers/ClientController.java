@@ -68,20 +68,27 @@ public class ClientController {
             return "redirect:/clients/";
         }
 
+        @GetMapping(CommonConstant.ROUTE_CREATE)
+        public String createClient(Model model) {
+            Client new_cli = new Client();
+            model.addAttribute(CLIENT_MODEL, new_cli);
+
+            return "clients/form_client_create";
+        }
+
+        @PostMapping(CommonConstant.ROUTE_SUBMIT)
+        public String submitClient(Model model, @ModelAttribute Client clientSubmit) {
+
+            DbOpenHelper DbHelper = new DbOpenHelper();
+            DbHelper.create_client(clientSubmit);
+            return "redirect:/clients/";
+        }
 
         @GetMapping(CommonConstant.ROUTE_EDIT)
         public String editClient(Model model, @PathVariable("id") long id_client) {
             Client clientFinded = this.findClientById(id_client);
 
             model.addAttribute(CLIENT_MODEL, clientFinded);
-
-            return "clients/form_client";
-        }
-
-        @GetMapping(CommonConstant.ROUTE_CREATE)
-        public String createClient(Model model) {
-            Client new_cli = new Client();
-            model.addAttribute(CLIENT_MODEL, new_cli);
 
             return "clients/form_client";
         }

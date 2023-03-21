@@ -22,9 +22,9 @@
 
 <body>
     <header>
-        <a href="./index.html"><img class="img" src="/img/logo.jpg" alt=""></a>
+        <a href="../index.html"><img class="img" src="/img/logo.jpg" alt=""></a>
         <a href="../confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
-        <a href="./index.html"><input class="delog" type="button" value="Retour accueil"></a>
+        <a href="../index.html"><input class="delog" type="button" value="Retour accueil"></a>
         <h1>Les Brakaas !</h1>
     </header>
     <p>Liste des clients :</p>
@@ -51,6 +51,6 @@
                 </tr>
             </tbody>
         </table>
-        <a href="./addClient.html"><input class="authLog" type="button" value="Ajouter un client !"></a>
+        <a th:href="@{/clients/create}"><input class="authLog" type="button" value="Ajouter un client !"></a>
     </div>
 </body>
