@@ -30,13 +30,17 @@ public class ClientController {
         private ArrayList<Client> clients = new ArrayList<>();
 
         public ClientController() throws SQLException {
-            DbOpenHelper DbHelper = new DbOpenHelper();
-            this.clients = DbHelper.show_all_client();
 
         }
 
         @GetMapping(CommonConstant.ROUTE_ALL)
         public String showAll(Model model) {
+            try {
+                DbOpenHelper DbHelper = new DbOpenHelper();
+                this.clients = DbHelper.show_all_client();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             model.addAttribute(CLIENTS_MODEL, clients);
 
             return "clients/client_list";
@@ -51,7 +55,6 @@ public class ClientController {
             if (clientFinded != null) {
                 model.addAttribute(CLIENT_MODEL, clientFinded);
             }
-
             return "clients/fiche_client";
         }
 
@@ -71,6 +74,15 @@ public class ClientController {
             Client clientFinded = this.findClientById(id_client);
 
             model.addAttribute(CLIENT_MODEL, clientFinded);
+
+            return "clients/form_client";
+        }
+
+        @GetMapping(CommonConstant.ROUTE_CREATE)
+        public String createClient(Model model) {
+            Client new_cli = new Client();
+            model.addAttribute(CLIENT_MODEL, new_cli);
+
             return "clients/form_client";
         }
 
@@ -102,17 +114,6 @@ public class ClientController {
                     break;
                 }
             }
-//      // Use For
-//      for (int i = 0; i <= products.size() - 1; i++) {
-//      	Product Product = products.get(i);
-//      	if (Product.getId() == id) {
-//              userFinded = Product;
-//              break;
-//          }
-//		}
-//      // Use Lambda
-//      products.stream().findFirst(e => e.getId() == id);
-
             return clientFinded;
         }
 

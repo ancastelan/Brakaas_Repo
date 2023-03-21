@@ -1,0 +1,51 @@
+/* Réglages de base des pages */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: lightgray;
+}
+
+
+/* Section du header */
+
+header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    font-family: 'Tilt Warp', cursive;
+}
+
+nav {
+    border-radius: 15px;
+    text-align: center;
+    width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img {
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 5em;
+    height: 5em;
+    float: left;
+    border-radius: 50%;
+    box-shadow: 5px 5px 5px rgb(62, 62, 62);
+}
+
+.img:hover {
+    transition: 0.1s;
+    box-shadow: none;
+    border: rgba(48, 46, 46, 0.297) 3px solid;
+}
+
+h1 {
+    margin-left: 3em;
+    color: black;
+}
+
+p {
+    text-align: center;
+    font-family: 'PT Serif', serif;
+    font-size: 25px;
+}
