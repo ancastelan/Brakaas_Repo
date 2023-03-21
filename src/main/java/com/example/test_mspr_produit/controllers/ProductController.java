@@ -1,9 +1,12 @@
 package com.example.test_mspr_produit.controllers;
 
+import com.example.test_mspr_produit.db.DbOpenHelper;
+import com.example.test_mspr_produit.models.Client;
 import com.example.test_mspr_produit.models.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +27,17 @@ public class ProductController {
     private ArrayList<Product> products = new ArrayList<>();
 
     public ProductController() {
-        products.add(new Product()
-                .setName("rivet")
-                .setQuantity(12)
-                .setId(1));
-        products.add(new Product().setName("Vis").setId(2));
-        products.add(new Product().setName("Boulon").setId(3));
-        products.add(new Product().setName("Ecrou").setId(4));
+
     }
 
     @GetMapping(CommonConstant.ROUTE_ALL)
     public String showAll(Model model) {
+        try {
+            DbOpenHelper test = new DbOpenHelper();
+            this.products = test.show_all_product();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         model.addAttribute(PRODUCTS_MODEL, products);
 
         return "products/product_list";
@@ -43,20 +46,29 @@ public class ProductController {
 
     @GetMapping(CommonConstant.ROUTE_SHOW)   // => /products/120/show
     //@RequestMapping(method = RequestMethod.GET, path = CommonConstant.ROUTE_SHOW)	// Base of @GetMapping(...)
-    public String viewProductSheet(Model model, @PathVariable("id") long id) {
-        Product userFinded = this.findProductById(id);
+    public String viewProductSheet(Model model, @PathVariable("id") long id_product) {
+        Product productFinded = this.findProductById(id_product);
 
-        if (userFinded != null) {
-            model.addAttribute(PRODUCT_MODEL, userFinded);
+        if (productFinded != null) {
+            model.addAttribute(PRODUCT_MODEL, productFinded);
         }
 
         return "products/fiche_produit";
     }
 
+    @GetMapping(CommonConstant.ROUTE_DELETE)
+    public String delClient(Model model, @PathVariable("id") long id_product) {
+        Product productFinded = this.findProductById(id_product);
+
+        model.addAttribute(PRODUCT_MODEL, productFinded);
+        DbOpenHelper DbHelper = new DbOpenHelper();
+        DbHelper.del_product(productFinded);
+        return "redirect:/products/";
+    }
 
     @GetMapping(CommonConstant.ROUTE_EDIT)
-    public String editProduct(Model model, @PathVariable("id") long id) {
-        Product productFinded = this.findProductById(id);
+    public String editProduct(Model model, @PathVariable("id") long id_product) {
+        Product productFinded = this.findProductById(id_product);
 
         model.addAttribute(PRODUCT_MODEL, productFinded);
         return "products/form_product";
@@ -64,14 +76,17 @@ public class ProductController {
 
     @PostMapping(CommonConstant.ROUTE_SAVE)
     public String saveProduct(Model model, @ModelAttribute Product productSubmit) {
-        Product productFinded = this.findProductById(productSubmit.getId());
+        Product productFinded = this.findProductById(productSubmit.getId_product());
 
         if (productFinded != null) {
-            productFinded.setName(productSubmit.getName());
-            productFinded.setQuantity(productSubmit.getQuantity());
+            productFinded.setName(productFinded.getName());
+            productFinded.setAvailability(productFinded.getAvailability());
+            productFinded.setPrice(productFinded.getPrice());
+            productFinded.setStock(productFinded.getStock());
         }
-
-        return "redirect:/products/" + productFinded.getId() + "/show";
+        DbOpenHelper DbHelper = new DbOpenHelper();
+        DbHelper.update_product(productSubmit);
+        return "redirect:/products/" + productFinded.getId_product() + "/show";
     }
 
 
@@ -79,7 +94,7 @@ public class ProductController {
         Product productFinded = null;
         // Foreach
         for (Product product : this.products) {
-            if (product.getId() == id) {
+            if (product.getId_product() == id) {
                 productFinded = product;
                 break;
             }

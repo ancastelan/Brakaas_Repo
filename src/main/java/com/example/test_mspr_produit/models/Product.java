@@ -7,10 +7,9 @@ import java.time.ZonedDateTime;
 
 @Data
 public class Product {
-    private int id;
+    private int id_product;
     private String name;
-    private Integer quantity;
-    private Boolean dispo;
-
+    private String availability;
+    private Integer price;
+    private String stock;
 }
-

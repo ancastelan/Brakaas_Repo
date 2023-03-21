@@ -1,6 +1,7 @@
 package com.example.test_mspr_produit.db;
 
 import com.example.test_mspr_produit.models.Client;
+import com.example.test_mspr_produit.models.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -152,6 +153,64 @@ public class DbOpenHelper {
         return null ;
 
     }
+    public ArrayList show_all_product() throws SQLException {
+        try (Statement statement = cnx.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * from products");
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            ArrayList<Product> a_produit = new ArrayList<>();
+            while (resultSet.next()) {
+                Product le_produit = new Product();
+                ArrayList<String> carac_produit = new ArrayList<>();
+                for (int i = 1; i <= columnsNumber; i++) {
+                    String columnValue = resultSet.getString(i);
+                    carac_produit.add(columnValue);
+                }
+                le_produit.setId_product(Integer.parseInt(carac_produit.get(0)))
+                        .setName(carac_produit.get(1))
+                        .setAvailability(carac_produit.get(2))
+                        .setPrice(Integer.parseInt(carac_produit.get(3)))
+                        .setStock(carac_produit.get(4));
+                a_produit.add(le_produit);
+            }
+            System.out.println(a_produit);
+            return a_produit;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cnx.close();
+        return null ;
+    }
+    public void update_product(Product product) {
+        String sql_req = "UPDATE `products` SET `name` = ?, `availability` = ?, `price` = ?, `stock` = ? WHERE `products`.`id_product` = ?";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getAvailability());
+            statement.setInt(3, product.getPrice());
+            statement.setString(4, product.getStock());
+            statement.setInt(5, product.getId_product());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void del_product(Product product) {
+        String sql_req = "DELETE FROM products WHERE `products`.`id_product` = ?";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setInt(1, product.getId_product());
+            statement.executeUpdate();
+            cnx.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 
