@@ -11,20 +11,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="img/logoFav2.ico">
+    <link rel="icon" type="image/x-icon" href="./img/logoFav.ico">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/table.css">
 
     <title>Brakaas</title>
 </head>
 
 <body>
-    <div class="title">
-        <a href="./index.html"><img class="img" src="img/logo.jpg"></a>
+    <header>
+        <a href="./index.html"><img class="img" src="./img/logo.jpg"></a>
+        <a href="./confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
+        <a href="./index.html"><input class="delog" type="button" value="Retour accueil"></a>
         <h1>Les Brakaas !</h1>
-    </div>
+    </header>
 
     <p>La liste des produits :</p>
-    <a href="./index.html"><input type="button" value="Accueil"></a>
+
+    <div class="tabContainer">
+        <table class="tabDesign">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Disponibilité</th>
+                    <th>Stock</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Vin Pinot Noir</td>
+                    <td>OK</td>
+                    <td>127</td>
+                    <td>45 €</td>
+                </tr>
+
+                <tr>
+                    <td>02</td>
+                    <td>Weed</td>
+                    <td>OK</td>
+                    <td>235</td>
+                    <td>67 €</td>
+                </tr>
+
+                <tr>
+                    <td>03</td>
+                    <td>Whiskey Jameson</td>
+                    <td>NONE</td>
+                    <td>0</td>
+                    <td>56 €</td>
+                </tr>
+
+                <tr>
+                    <td>04</td>
+                    <td>Prout</td>
+                    <td>OK</td>
+                    <td>1234567</td>
+                    <td>0.01 €</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="./addProduct.html"><input class="authLog" type="button" value="Ajouter un produit !"></a>
+    </div>
 </body>
 
 </html>
