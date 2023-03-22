@@ -2,6 +2,7 @@ package com.example.test_mspr_produit.db;
 
 import com.example.test_mspr_produit.models.Client;
 import com.example.test_mspr_produit.models.Product;
+import com.example.test_mspr_produit.models.Order;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -71,6 +72,23 @@ public class DbOpenHelper {
             e.printStackTrace();
         }
     }
+
+
+    /* public void create_client(){
+        String sql_req = "INSERT INTO `client`(firstname, lastname, company_address, company_name, phone_number, email_address, SIRET_number) VALUES ?, ?, ?, ?, ?, ?, ?";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setString(1, client.getFirstname());
+            statement.setString(2, client.getLastname());
+            statement.setString(3, client.getCompany_address());
+            statement.setString(4, client.getCompany_name());
+            statement.setString(5, client.getPhone_number());
+            statement.setString(6, client.getEmail_address());
+            statement.setString(7, client.getSIRET_number());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
 
     public ArrayList show_all_client() throws SQLException {
         try (Statement statement = cnx.createStatement()) {
@@ -192,5 +210,50 @@ public class DbOpenHelper {
             e.printStackTrace();
         }
 
+    }
+
+    public void create_order(Order order) {
+        String sql_req = "INSERT INTO ordered_item(client_id, product_id, quantity, total, date) VALUES (?, ?, ?, (SELECT price from products WHERE id_product = ?)*?, NOW())";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(sql_req);
+            statement.setInt(1, order.getClient_id());
+            statement.setInt(2, order.getProduct_id());
+            statement.setInt(3, order.getQuantity());
+            statement.setInt(4, order.getProduct_id());
+            statement.setInt(5, order.getQuantity());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList show_all_order() throws SQLException {
+        try (Statement statement = cnx.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * from ordered_item");
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            ArrayList<Order> a_order = new ArrayList<>();
+            while (resultSet.next()) {
+                Order le_order = new Order();
+                ArrayList<String> carac_order = new ArrayList<>();
+                for (int i = 1; i <= columnsNumber; i++) {
+                    String columnValue = resultSet.getString(i);
+                    carac_order.add(columnValue);
+                }
+                le_order.setId_order(Integer.parseInt(carac_order.get(0)))
+                        .setClient_id(Integer.parseInt(carac_order.get(1)))
+                        .setProduct_id(Integer.parseInt(carac_order.get(2)))
+                        .setQuantity(Integer.parseInt(carac_order.get(3)))
+                        .setTotal(Integer.parseInt(carac_order.get(4)))
+                        .setDate(carac_order.get(5));
+                a_order.add(le_order);
+            }
+            System.out.println(a_order);
+            return a_order;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cnx.close();
+        return null ;
     }
 }
