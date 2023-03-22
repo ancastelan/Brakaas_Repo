@@ -11,46 +11,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="../../static/img/logoFav.ico">
+    <link rel="icon" type="image/x-icon" href="/img/logoFav.ico">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/table.css">
-
 
     <title>Brakaas</title>
 </head>
 
 <body>
     <header>
-        <a href="../../"><img class="img" src="/img/logo.jpg" alt=""></a>
-        <a href="../confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
+        <a href="../../"><img class="img" src="/img/logo.jpg"></a>
+        <a href="/confirmation/delogConf.html"><input class="delog" type="button" value="Deconnexion"></a>
         <a href="../../"><input class="delog" type="button" value="Retour accueil"></a>
         <h1>Les Brakaas !</h1>
     </header>
-    <p>Liste des clients :</p>
+
+    <p>Création de commande :</p>
 
     <div class="tabContainer">
         <table class="tabDesign">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Action</th>
+                    <th>Choix+</th>
+                    <th>Nom</th>
+                    <th>Disponibilité</th>
+                    <th>Stock</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="client: ${clients}">
-                    <th scope="row" th:text="${client.id_client}" />
-                    <td th:text="${client.firstname}" />
-                    <td th:text="${client.lastname}" />
-                    <td>
-                        <a th:href="@{'/clients/' + ${client.id_client} + '/show'}">Show</a>
-                        <a th:href="@{|/clients/${client.id_client}/edit|}">Edit</a>
-                    </td>
+                <tr th:each=""order: ${orders}">
+                    <td><input type="checkbox"></td>
+                    <td>Vin Pinot Noir</td>
+                    <td>OK</td>
+                    <td>127</td>
+                    <td>45 €</td>
+                    <td><input class="quantitieChoice" type="number"></td>
+                </tr>
+
+
                 </tr>
             </tbody>
         </table>
-        <a th:href="@{/clients/create}"><input class="authLog" type="button" value="Ajouter un client !"></a>
+        <a href="/confirmation/commandConf.html"><input class="authLog" type="button" value="Créer la commande !"></a>
     </div>
 </body>
+
+</html>

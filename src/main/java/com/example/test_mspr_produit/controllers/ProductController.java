@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
         import org.springframework.web.bind.annotation.PostMapping;
         import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
-@RequestMapping("/products")		// Prefix Path by /products/....
+@RequestMapping("/products")		// Prefix Path by /products....
 public class ProductController {
 
     public static final String PRODUCT_MODEL = "current_product";
@@ -79,10 +78,10 @@ public class ProductController {
         Product productFinded = this.findProductById(productSubmit.getId_product());
 
         if (productFinded != null) {
-            productFinded.setName(productFinded.getName());
-            productFinded.setAvailability(productFinded.getAvailability());
-            productFinded.setPrice(productFinded.getPrice());
-            productFinded.setStock(productFinded.getStock());
+            productFinded.setName(productSubmit.getName());
+            productFinded.setAvailability(productSubmit.getAvailability());
+            productFinded.setPrice(productSubmit.getPrice());
+            productFinded.setStock(productSubmit.getStock());
         }
         DbOpenHelper DbHelper = new DbOpenHelper();
         DbHelper.update_product(productSubmit);
@@ -99,16 +98,6 @@ public class ProductController {
                 break;
             }
         }
-//      // Use For
-//      for (int i = 0; i <= products.size() - 1; i++) {
-//      	Product Product = products.get(i);
-//      	if (Product.getId() == id) {
-//              userFinded = Product;
-//              break;
-//          }
-//		}
-//      // Use Lambda
-//      products.stream().findFirst(e => e.getId() == id);
 
         return productFinded;
     }
