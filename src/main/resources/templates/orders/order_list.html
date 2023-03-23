@@ -29,12 +29,14 @@
     <table class="tabDesign">
         <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Order ID</th>
           <th scope="col">Client ID</th>
+          <th scope="col">Nom du Client</th>
           <th scope="col">Product ID</th>
+          <th scope="col">Nom du Produit</th>
           <th scope="col">Quantité</th>
           <th scope="col">Prix Total</th>
+          <th scope="col">Date</th>
           <th scope="col">Action</th>
         </tr>
         </thead>
@@ -42,7 +44,9 @@
         <tr th:each="order: ${orders}">
           <th scope="row" th:text="${order.id_order}" />
           <td th:text="${order.client_id}" />
+          <td th:text="${order.client_name}" />
           <td th:text="${order.product_id}" />
+          <td th:text="${order.product_name}" />
           <td th:text="${order.quantity}" />
           <td th:text="${order.total}" />
           <td th:text="${order.date}" />

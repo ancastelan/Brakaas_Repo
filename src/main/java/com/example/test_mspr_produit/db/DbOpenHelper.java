@@ -224,15 +224,17 @@ public class DbOpenHelper {
 
 
     public void create_order(Integer id_order, Integer id_du_client, Integer id_du_produit, Integer quantity) {
-        String sql_req = "INSERT INTO ordered_item(id_order, client_id, product_id, quantity, total, date) VALUES (?, ?, ?, ?, (SELECT price from products WHERE id_product = ?)*?, NOW())";
+        String sql_req = "INSERT INTO ordered_item(id_order, client_id, client_name, product_id, product_name, quantity, total, date) VALUES (?, ?,(SELECT lastname FROM client WHERE `id_client` = ?), ?, (SELECT name FROM products WHERE `id_product` = ?), ?, (SELECT price from products WHERE id_product = ?)*?, NOW())";
         try {
             PreparedStatement statement = cnx.prepareStatement(sql_req);
             statement.setInt(1, id_order);
             statement.setInt(2, id_du_client);
-            statement.setInt(3, id_du_produit);
-            statement.setInt(4, quantity);
+            statement.setInt(3, id_du_client);
+            statement.setInt(4, id_du_produit);
             statement.setInt(5, id_du_produit);
             statement.setInt(6, quantity);
+            statement.setInt(7, id_du_produit);
+            statement.setInt(8, quantity);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -249,15 +251,22 @@ public class DbOpenHelper {
                 Order le_order = new Order();
                 ArrayList<String> carac_order = new ArrayList<>();
                 for (int i = 1; i <= columnsNumber; i++) {
+                    String columnName = rsmd.getColumnName(i);
                     String columnValue = resultSet.getString(i);
+                    if (columnName == "client_name" || columnName == "product_name") {
+                        carac_order.add(columnValue.toString());
+                    }
                     carac_order.add(columnValue);
                 }
-                le_order.setId_order(Integer.parseInt(carac_order.get(0)))
-                        .setClient_id(Integer.parseInt(carac_order.get(1)))
-                        .setProduct_id(Integer.parseInt(carac_order.get(2)))
-                        .setQuantity(Integer.parseInt(carac_order.get(3)))
-                        .setTotal(Integer.parseInt(carac_order.get(4)))
-                        .setDate(carac_order.get(5));
+                System.out.println(carac_order);
+                le_order.setId_order(Integer.parseInt(carac_order.get(1)))
+                        .setClient_id(Integer.parseInt(carac_order.get(2)))
+                        .setClient_name(carac_order.get(3))
+                        .setProduct_id(Integer.parseInt(carac_order.get(4)))
+                        .setProduct_name(carac_order.get(5))
+                        .setQuantity(Integer.parseInt(carac_order.get(6)))
+                        .setTotal(Integer.parseInt(carac_order.get(7)))
+                        .setDate(carac_order.get(8));
                 a_order.add(le_order);
             }
             System.out.println(a_order);

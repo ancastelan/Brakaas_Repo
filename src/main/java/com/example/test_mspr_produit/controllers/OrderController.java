@@ -31,7 +31,7 @@ public class OrderController {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
 
-    private static Integer AUTO_INCR_ORDER = 56;
+    private static Integer AUTO_INCR_ORDER = 55;
 
     public OrderController() {
 
