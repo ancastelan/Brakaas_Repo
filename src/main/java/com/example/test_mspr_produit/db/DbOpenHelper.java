@@ -148,7 +148,7 @@ public class DbOpenHelper {
                          .setSIRET_number((carac_client.get(7)));
                 a_client.add(le_client);
             }
-            System.out.println(a_client);
+
             return a_client;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class DbOpenHelper {
                         .setStock(carac_produit.get(4));
                 a_produit.add(le_produit);
             }
-            System.out.println(a_produit);
+
             return a_produit;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -258,7 +258,7 @@ public class DbOpenHelper {
                     }
                     carac_order.add(columnValue);
                 }
-                System.out.println(carac_order);
+
                 le_order.setId_order(Integer.parseInt(carac_order.get(1)))
                         .setClient_id(Integer.parseInt(carac_order.get(2)))
                         .setClient_name(carac_order.get(3))
@@ -269,7 +269,7 @@ public class DbOpenHelper {
                         .setDate(carac_order.get(8));
                 a_order.add(le_order);
             }
-            System.out.println(a_order);
+
             return a_order;
         } catch (SQLException e) {
             e.printStackTrace();
