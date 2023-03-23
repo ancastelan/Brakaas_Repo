@@ -6,6 +6,7 @@ import com.example.test_mspr_produit.models.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,9 +26,15 @@ public class ProductController {
     //private Product currentUser;
     private ArrayList<Product> products = new ArrayList<>();
 
-    public ProductController() {
 
+    public ProductController() {
     }
+
+    public ArrayList<Product> getProducts() {
+        return this.products;
+    }
+
+
 
     @GetMapping(CommonConstant.ROUTE_ALL)
     public String showAll(Model model) {

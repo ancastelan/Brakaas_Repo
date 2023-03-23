@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="../../static/img/logoFav.ico">
+    <link rel="icon" type="image/x-icon" href="/img/logoFav.ico">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/table.css">
@@ -47,6 +47,7 @@
                     <td>
                         <a th:href="@{'/clients/' + ${client.id_client} + '/show'}">Show</a>
                         <a th:href="@{|/clients/${client.id_client}/edit|}">Edit</a>
+                        <a th:href="@{|/orders/${client.id_client}/create|}">Créer une commande</a>
                     </td>
                 </tr>
             </tbody>

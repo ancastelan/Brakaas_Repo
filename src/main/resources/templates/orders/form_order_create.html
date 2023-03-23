@@ -30,32 +30,35 @@
     <p>Création de commande :</p>
 
     <div class="tabContainer">
-        <table class="tabDesign">
-            <thead>
-                <tr>
-                    <th>Choix+</th>
-                    <th>Nom</th>
-                    <th>Disponibilité</th>
-                    <th>Stock</th>
-                    <th>Prix Unitaire</th>
-                    <th>Quantité</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each=""order: ${orders}">
-                    <td><input type="checkbox"></td>
-                    <td>Vin Pinot Noir</td>
-                    <td>OK</td>
-                    <td>127</td>
-                    <td>45 €</td>
-                    <td><input class="quantitieChoice" type="number"></td>
-                </tr>
+        <form method="POST" th:action="@{|/orders/${id}/submit|}" th:object="${id_products}">
+            <table class="tabDesign">
+                <thead>
+                    <tr>
+                        <th>ID Produit</th>
+                        <th>Nom</th>
+                        <th>Disponibilité</th>
+                        <th>Stock</th>
+                        <th>Prix Unitaire</th>
+                        <th>Quantité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product: ${products}">
+                        <!-- <th scope="row" th:text="${product.id_product}" /> -->
+                        <td th:text="${product.id_product}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.availability}"></td>
+                        <td th:text="${product.stock}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td><input type="number"th:name="${product.id_product}" value=0></td>
+                    </tr>
+                </tbody>
+            </table>
+        <a href="../"><input class="authLog" type="submit" value="Créer la commande !"></a>
+        </form>
 
+        <!-- <a href="/confirmation/commandConf.html"><input class="authLog" type="button" value="Créer la commande !"></a> -->
 
-                </tr>
-            </tbody>
-        </table>
-        <a href="/confirmation/commandConf.html"><input class="authLog" type="button" value="Créer la commande !"></a>
     </div>
 </body>
 

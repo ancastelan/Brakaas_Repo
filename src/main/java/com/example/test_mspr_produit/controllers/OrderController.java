@@ -7,6 +7,7 @@ import com.example.test_mspr_produit.models.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,17 +17,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
 
     public static final String ORDER_MODEL = "current_order";
     public static final String ORDERS_MODEL = "orders";
+    public static final String PRODUCTS_MODEL = "products";
 
+    private ArrayList<Integer> id_products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
+
+    private static Integer AUTO_INCR_ORDER = 56;
 
     public OrderController() {
 
+    }
+
+    public void setAUTO_INCR_ORDER(Integer incr) {
+        this.AUTO_INCR_ORDER = incr;
+    }
+
+    public Integer getAUTO_INCR_ORDER() {
+        return this.AUTO_INCR_ORDER;
     }
 
     @GetMapping(CommonConstant.ROUTE_ALL)
@@ -50,19 +66,33 @@ public class OrderController {
         return "orders/fiche_order";
     }
 
-    @GetMapping(CommonConstant.ROUTE_CREATE)
-    public String createClient(Model model) {
-        Order new_order = new Order();
-        model.addAttribute(ORDER_MODEL, new_order);
-
+    @GetMapping(CommonConstant.ROUTE_CREATE_ORDER)
+    public String createOrder(Model model, @PathVariable("id") long id_client) {
+        try {
+            DbOpenHelper order_dbo = new DbOpenHelper();
+            this.products = order_dbo.show_all_product();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("id_products", id_products);
+        model.addAttribute(PRODUCTS_MODEL, products);
         return "orders/form_order_create";
     }
 
-    @PostMapping(CommonConstant.ROUTE_SUBMIT)
-    public String submitClient(Model model, @ModelAttribute Order orderSubmit) {
-
+    @PostMapping(CommonConstant.ROUTE_SUBMIT_ORDER)
+    public String submitOrder(Model model, HttpServletRequest request, @PathVariable("id") Integer id_client) {
         DbOpenHelper DbHelper = new DbOpenHelper();
-        DbHelper.create_order(orderSubmit);
+        for (Product product: products) {
+            String quantityParamName = Integer.toString(product.getId_product());
+            int quantity = Integer.parseInt(request.getParameter(quantityParamName));
+            if (quantity > 0) {
+                id_products.add(product.getId_product());
+                DbHelper.create_order(AUTO_INCR_ORDER, id_client, product.getId_product(), quantity);
+            }
+        }
+        System.out.println(id_products);
+        AUTO_INCR_ORDER = AUTO_INCR_ORDER + 1;
+
         return "redirect:/orders/";
     }
 
@@ -77,4 +107,5 @@ public class OrderController {
         }
         return orderFinded;
     }
+
 }

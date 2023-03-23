@@ -223,15 +223,16 @@ public class DbOpenHelper {
      */
 
 
-    public void create_order(Order order) {
-        String sql_req = "INSERT INTO ordered_item(client_id, product_id, quantity, total, date) VALUES (?, ?, ?, (SELECT price from products WHERE id_product = ?)*?, NOW())";
+    public void create_order(Integer id_order, Integer id_du_client, Integer id_du_produit, Integer quantity) {
+        String sql_req = "INSERT INTO ordered_item(id_order, client_id, product_id, quantity, total, date) VALUES (?, ?, ?, ?, (SELECT price from products WHERE id_product = ?)*?, NOW())";
         try {
             PreparedStatement statement = cnx.prepareStatement(sql_req);
-            statement.setInt(1, order.getClient_id());
-            statement.setInt(2, order.getProduct_id());
-            statement.setInt(3, order.getQuantity());
-            statement.setInt(4, order.getProduct_id());
-            statement.setInt(5, order.getQuantity());
+            statement.setInt(1, id_order);
+            statement.setInt(2, id_du_client);
+            statement.setInt(3, id_du_produit);
+            statement.setInt(4, quantity);
+            statement.setInt(5, id_du_produit);
+            statement.setInt(6, quantity);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
